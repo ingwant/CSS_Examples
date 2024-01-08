@@ -1,0 +1,186 @@
+/* ==================================================================
+   == DEFINE VARIABLES AND SET VERTICAL CENTERING STYLES ====== START
+   ================================================================== */
+
+/* Root level CSS variables for easy theme management */
+:root {
+    --slide-img-width-large: 200px;
+    --slide-img-width-small: 120px;
+    /* Adjust based on number of slides */
+    --slide-track-width-large: calc(240px * 20);
+    --slide-track-width-small: calc(140px * 20);
+    /* Animation speed */
+    --speed: 30s;
+    /* Background color for the first slide */
+    --background-color-first: blue;
+    /* Background color for the last slide */
+    --background-color-last: yellow;
+}
+
+/* Body styling to center content */
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    /* Full viewport height */
+    height: 100vh;
+    background-color: #1f1f1f;
+}
+
+/* ==================================================================
+   == DEFINE VARIABLES AND SET VERTICAL CENTERING STYLES ======== END
+   ================================================================== */
+
+
+/* ==================================================================
+   == STYLE USED TO DISTINGUISH THE FIRST AND LAST SLIDE ====== START
+   ================================================================== */
+
+/* Class for the first slide */
+.first {
+    background-color: var(--background-color-first);
+}
+
+/* Class for the last slide */
+.last {
+    background-color: var(--background-color-last);
+}
+
+/* ==================================================================
+   == STYLE USED TO DISTINGUISH THE FIRST AND LAST SLIDE ======== END
+   ================================================================== */
+
+
+/* ==================================================================
+   == STYLE FOR SLIDER CONTAINER ============================== START
+   ================================================================== */
+
+/* Container for the slider with styling */
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    /* Adjust the width as needed */
+    width: 80%;
+    background-color: #eeeeee;
+}
+
+/* Slide container with grid layout for centering */
+.slide-container {
+    position: relative;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+/* Mask for fade effect on the edges */
+.slider-container[data-mask="true"] {
+    mask: linear-gradient(90deg, transparent, #fff 20%, #fff 80%, transparent);
+}
+
+/* ==================================================================
+   == STYLE FOR SLIDER CONTAINER ================================ END
+   ================================================================== */
+
+
+/* ==================================================================
+   == STYLE FOR SLIDES  ======================================= START
+   ================================================================== */
+
+/* Flexbox for the slide list */
+.slide-list {
+    display: flex;
+    /* Optimizes animation performance */
+    will-change: transform;
+}
+
+/* Styling for individual slides */
+.slide {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    width: max-content;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Styling for slide images with hover effect */
+.slide img {
+    transition: transform 0.5s;
+    /* Responsive width */
+    width: var(--slide-img-width-large);
+    border-radius: 5px;
+    width: 200px;
+    height: 100px;
+    object-fit: cover;
+}
+
+/* Scale effect on hover for images */
+.slide img:hover {
+    transform: scale(1.2);
+}
+
+/* Media query for devices wider than 768px */
+@media (min-width: 768px) {
+    .slide img {
+        width: var(--slide-img-width-large);
+    }
+
+    .slide-list {
+        width: var(--slide-track-width-large);
+    }
+}
+
+/* Media query for devices narrower than 768px */
+@media (max-width: 768px) {
+    .slide img {
+        width: var(--slide-img-width-small);
+    }
+
+    .slide-list {
+        width: var(--slide-track-width-small);
+    }
+}
+
+/* ==================================================================
+   == STYLE FOR SLIDES  ========================================= END
+   ================================================================== */
+
+
+/* ==================================================================
+   == ANIMATION FOR THE SLIDE LIST  =========================== START
+   ================================================================== */
+
+/* Animation for the slide list with variable speed and direction */
+.slider-container[data-animated="true"] .slide-list {
+    animation: scroll var(--direction, forwards) var(--speed) linear infinite;
+}
+
+/* Reverse direction when data-direction is set to right */
+.slider-container[data-direction="right"] {
+    --direction: reverse;
+}
+
+/* Pause animation on hover */
+.slider-container[data-animated="true"] .slide-list:hover {
+    animation-play-state: paused;
+}
+
+/* Keyframes for the scrolling animation */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* ==================================================================
+   == ANIMATION FOR THE SLIDE LIST  ============================= END
+   ================================================================== */
+
